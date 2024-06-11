@@ -1,6 +1,13 @@
 import streamlit as st
 import yaml
-from llm_bot import dummy_bot, echo_bot #contains logic for bot's response
+from llm_bot import dummy_bot #contains logic for bot's response
+import json
+import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+AZURE_ENDPOINT_KEY = os.environ['AZURE_ENDPOINT_KEY']
 
 # Read config yaml file
 with open('./streamlit_app/config.yml', 'r') as file:
@@ -41,6 +48,7 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"], avatar=avatar[message["role"]]):
         st.markdown(message["content"])
 
+
 # React to user input
 if prompt := st.chat_input("Send a message"):
     # Add user message to chat history
@@ -48,12 +56,33 @@ if prompt := st.chat_input("Send a message"):
     # Display user message in chat message container
     with st.chat_message("user"):
         st.markdown(prompt)
-    # Get bot response    
-    response = echo_bot(prompt)
-    with st.chat_message("assistant", avatar=config['streamlit']['avatar']):
-        st.markdown(response)
-    # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    
+    # Define the request URI and body
+    requestURI = 'https://aoaibot.westus.inference.ml.azure.com/score'
+    requestBody = {
+        'chat_history': [],
+        'chat_input': prompt
+    }
+
+    # Define the headers
+    headers = {
+        'Authorization': f'Bearer {AZURE_ENDPOINT_KEY}',
+        'Content-Type': 'application/json'
+    }
+
+    # Make the request
+    response = requests.post(requestURI, headers=headers, data=json.dumps(requestBody))
+
+    print("Response status:", response.status_code)
+
+    if response.ok:
+        parsedResponseBody = response.json()
+        with st.chat_message("assistant", avatar=config['streamlit']['avatar']):
+            st.markdown(parsedResponseBody['chat_output'])
+        # Add assistant response to chat history
+        st.session_state.messages.append({"role": "assistant", "content": parsedResponseBody['chat_output']})
+    else:
+        print("Request failed with status", response.status_code)
 
 
     

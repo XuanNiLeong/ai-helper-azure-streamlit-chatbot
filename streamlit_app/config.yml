@@ -1,11 +1,11 @@
 ---
 streamlit:
-  title: "Applied AI team's bot"
-  tab_title: "LLM bot"
+  title: "AI Helper Bot"
+  tab_title: "AI Helper Bot"
   logo: "./streamlit_app/images/Microsoft_logo.png"
   page_icon: "./streamlit_app/images/Microsoft_logo.png"
   avatar: "./streamlit_app/images/openai.png"
-  assistant_intro_message: "Hi there :wave:, I'm an AI assistant powered by Large Language Models. How can I help?" 
-  about: "this is a demo bot, author: Applied AI team"
+  assistant_intro_message: "Hi there!👋 I'm AIHelper and I have been fed with a wide range of knowledge about the different AI services and Copilots we have, how can I help?" 
+  about: "This is a bot that helps with questions relating to AI or the different studios we, as Microsoft provides. Let's get started! 🚀"
 azure:
   dummy: "test"
