@@ -58,7 +58,9 @@ if prompt := st.chat_input("Send a message"):
         st.markdown(prompt)
     
     # Define the request URI and body
-    requestURI = 'https://aoaibot.westus.inference.ml.azure.com/score'
+    # (old endpoint) requestURI = 'https://aoaibot.westus.inference.ml.azure.com/score' 
+    requestURI = 'https://finalintelligentbot-endpoint.eastus.inference.ml.azure.com/score' #new endpoint
+
     requestBody = {
         'chat_history': [],
         'chat_input': prompt
