@@ -58,8 +58,9 @@ if prompt := st.chat_input("Send a message"):
         st.markdown(prompt)
     
     # Define the request URI and body
-    # (old endpoint) requestURI = 'https://aoaibot.westus.inference.ml.azure.com/score' 
-    requestURI = 'https://finalintelligentbot-endpoint.eastus.inference.ml.azure.com/score' #new endpoint
+    # (khurram's old endpoint) requestURI = 'https://aoaibot.westus.inference.ml.azure.com/score' 
+    # (renata's old endpoint) requestURI = 'https://finalintelligentbot-endpoint.eastus.inference.ml.azure.com/score' #new endpoint
+    requestURI = 'https://realfinalintelligentbot-eokfr.eastus.inference.ml.azure.com/score' #new endpoint
 
     requestBody = {
         'chat_history': [],
@@ -68,7 +69,7 @@ if prompt := st.chat_input("Send a message"):
 
     # Define the headers
     headers = {
-        'Authorization': f'Bearer {AZURE_ENDPOINT_KEY}',
+        'Authorization': f'Bearer ${AZURE_ENDPOINT_KEY}',
         'Content-Type': 'application/json'
     }
 
